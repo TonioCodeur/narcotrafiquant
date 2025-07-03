@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingSpinner } from "@/components/loading-spinner";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,9 +20,7 @@ export default function Home() {
     const checkSession = async () => {
       try {
         const session = await authClient.getSession();
-        if (session?.data?.user) {
-          setUser(session.data.user);
-        }
+        if (session?.data?.user) setUser(session.data.user);
       } catch (error) {
         console.error("Erreur de session:", error);
       } finally {
@@ -73,7 +72,7 @@ export default function Home() {
           <div className="flex items-center space-x-4">
             <ModeToggle />
             {loading ? (
-              <div className="h-10 w-20 bg-muted animate-pulse rounded"></div>
+              <LoadingSpinner size={20} className="h-10" />
             ) : user ? (
               <div className="flex items-center space-x-4">
                 <span className="text-sm font-medium">Salut, {user.name || user.email}!</span>
