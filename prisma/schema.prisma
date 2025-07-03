@@ -1,0 +1,13 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Les modèles liés aux utilisateurs seront injectés par Better Auth via son CLI.
+model Placeholder {
+  id Int @id @default(autoincrement())
+}
