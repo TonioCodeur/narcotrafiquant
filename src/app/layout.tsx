@@ -1,4 +1,6 @@
+import { ModeToggle } from "@/components/mode-toggle";
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -27,7 +29,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <div className="absolute right-1 bottom-1 fixed">
+            <ModeToggle />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
