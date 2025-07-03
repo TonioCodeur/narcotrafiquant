@@ -1,102 +1,199 @@
-import Image from "next/image";
+"use client";
+
+import { LoadingSpinner } from "@/components/loading-spinner";
+import { ModeToggle } from "@/components/mode-toggle";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { authClient } from "@/lib/auth-client";
+import { Gamepad2, LogOut, Shield, Sparkles, Trophy, Users } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const session = await authClient.getSession();
+        if (session?.data?.user) setUser(session.data.user);
+      } catch (error) {
+        console.error("Erreur de session:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkSession();
+  }, []);
+
+  const handleLogout = async () => {
+    await authClient.signOut();
+    setUser(null);
+    router.refresh();
+  };
+
+  const features = [
+    {
+      icon: <Trophy className="h-8 w-8" />,
+      title: "Compétition Intense",
+      description: "Affrontez des joueurs du monde entier dans des parties épiques"
+    },
+    {
+      icon: <Users className="h-8 w-8" />,
+      title: "Communauté Active",
+      description: "Rejoignez des milliers de joueurs passionnés"
+    },
+    {
+      icon: <Shield className="h-8 w-8" />,
+      title: "Jeu Sécurisé",
+      description: "Système anti-triche et environnement protégé"
+    },
+    {
+      icon: <Sparkles className="h-8 w-8" />,
+      title: "Mises à Jour Régulières",
+      description: "Nouveau contenu et événements chaque semaine"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      {/* Navigation */}
+      <nav className="border-b">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Gamepad2 className="h-8 w-8 text-primary" />
+            <h1 className="text-2xl font-bold">Narcotrafiquant</h1>
+          </div>
+          
+          <div className="flex items-center space-x-4">
+            <ModeToggle />
+            {loading ? (
+              <LoadingSpinner size={20} className="h-10" />
+            ) : user ? (
+              <div className="flex items-center space-x-4">
+                <span className="text-sm font-medium">Salut, {user.name || user.email}!</span>
+                <Button variant="outline" size="sm" onClick={handleLogout}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Déconnexion
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Link href="/login">
+                  <Button variant="outline">Connexion</Button>
+                </Link>
+                <Link href="/login">
+                  <Button>Commencer à Jouer</Button>
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="flex-1">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              Plongez dans l'Univers Impitoyable du Crime Organisé
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              Construisez votre empire, gérez vos territoires et devenez le baron de la drogue le plus redouté.
+              Stratégie, alliances et trahisons vous attendent.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {user ? (
+                <Button size="lg" className="text-lg px-8">
+                  <Gamepad2 className="mr-2 h-5 w-5" />
+                  Jouer Maintenant
+                </Button>
+              ) : (
+                <>
+                  <Link href="/login">
+                    <Button size="lg" className="text-lg px-8">
+                      <Gamepad2 className="mr-2 h-5 w-5" />
+                      Commencer l'Aventure
+                    </Button>
+                  </Link>
+                  <Link href="/conditions">
+                    <Button size="lg" variant="outline" className="text-lg px-8">
+                      <Shield className="mr-2 h-5 w-5" />
+                      Conditions du Jeu
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+
+          <Separator className="mb-16" />
+
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {features.map((feature, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="mb-4 text-primary">{feature.icon}</div>
+                  <CardTitle>{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>{feature.description}</CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* CTA Section */}
+          <Card className="bg-primary/5 border-primary/20">
+            <CardHeader className="text-center">
+              <CardTitle className="text-3xl mb-2">Prêt à Conquérir les Rues ?</CardTitle>
+              <CardDescription className="text-base">
+                ⚠️ Ce jeu est destiné à un public adulte (18+) et contient des thèmes matures.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              {!user && (
+                <div className="space-y-4">
+                  <p className="text-muted-foreground">
+                    Créez votre compte gratuitement et commencez votre ascension vers le sommet du crime organisé.
+                  </p>
+                  <Link href="/login">
+                    <Button size="lg" className="px-8">
+                      Créer un Compte Gratuit
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t py-6">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-sm text-muted-foreground">
+              © 2024 Narcotrafiquant. Tous droits réservés.
+            </div>
+            <div className="flex items-center space-x-6">
+              <Link href="/conditions" className="text-sm text-muted-foreground hover:text-primary">
+                Conditions du Jeu
+              </Link>
+              <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
+                Support
+              </Link>
+              <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
+                Discord
+              </Link>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );
