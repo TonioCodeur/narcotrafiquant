@@ -49,8 +49,9 @@ export default function LoginPage() {
           router.push("/");
         }
       }
-    } catch (error: any) {
-      toast.error(error.message || "Une erreur est survenue");
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Une erreur est survenue";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -63,7 +64,7 @@ export default function LoginPage() {
         provider,
         callbackURL: "/"
       });
-    } catch (error) {
+    } catch {
       toast.error("Erreur lors de la connexion OAuth");
       setLoading(false);
     }
@@ -78,7 +79,7 @@ export default function LoginPage() {
           </CardTitle>
           <CardDescription>
             {isSignUp 
-              ? "Rejoignez l'univers impitoyable du crime organisé" 
+              ? "Rejoignez l&apos;univers impitoyable du crime organisé" 
               : "Connectez-vous pour continuer votre ascension"
             }
           </CardDescription>

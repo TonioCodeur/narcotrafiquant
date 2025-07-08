@@ -10,7 +10,7 @@ export default function ConditionsPage() {
     {
       icon: <Users className="h-6 w-6" />,
       title: "Âge Requis",
-      content: "Ce jeu est strictement réservé aux personnes âgées de 18 ans et plus. En créant un compte, vous certifiez avoir l'âge légal requis."
+      content: "Ce jeu est strictement réservé aux personnes âgées de 18 ans et plus. En créant un compte, vous certifiez avoir l&apos;âge légal requis."
     },
     {
       icon: <AlertCircle className="h-6 w-6" />,
@@ -31,10 +31,10 @@ export default function ConditionsPage() {
 
   const rules = [
     "Aucune forme de harcèlement, discrimination ou comportement toxique ne sera tolérée",
-    "L'utilisation de logiciels de triche ou d'exploitation de bugs est strictement interdite",
-    "Le commerce réel d'objets virtuels contre de l'argent réel est interdit",
+    "L&apos;utilisation de logiciels de triche ou d&apos;exploitation de bugs est strictement interdite",
+    "Le commerce réel d&apos;objets virtuels contre de l&apos;argent réel est interdit",
     "Le partage de compte est interdit et peut entraîner une suspension",
-    "Les noms d'utilisateur offensants ou inappropriés seront modifiés sans préavis",
+    "Les noms d&apos;utilisateur offensants ou inappropriés seront modifiés sans préavis",
     "Toute tentative de contournement des systèmes de sécurité entraînera un bannissement permanent"
   ];
 
@@ -46,7 +46,7 @@ export default function ConditionsPage() {
           <Link href="/">
             <Button variant="ghost" size="sm">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Retour à l'accueil
+              Retour à l&apos;accueil
             </Button>
           </Link>
           <ModeToggle />
@@ -76,7 +76,7 @@ export default function ConditionsPage() {
             </p>
             <p className="text-sm text-muted-foreground">
               Narcotrafiquant est un jeu de simulation criminelle contenant des thèmes matures qui ne conviennent pas aux mineurs. 
-              En accédant à ce jeu, vous confirmez avoir l'âge légal requis dans votre juridiction.
+              En accédant à ce jeu, vous confirmez avoir l&apos;âge légal requis dans votre juridiction.
             </p>
           </CardContent>
         </Card>
@@ -105,7 +105,7 @@ export default function ConditionsPage() {
           <CardHeader>
             <CardTitle>Règles de la Communauté</CardTitle>
             <CardDescription>
-              Le non-respect de ces règles peut entraîner des sanctions allant jusqu'au bannissement permanent
+              Le non-respect de ces règles peut entraîner des sanctions allant jusqu&apos;au bannissement permanent
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -133,8 +133,8 @@ export default function ConditionsPage() {
               vivantes ou décédées, ou avec des événements réels est purement fortuite.
             </p>
             <p>
-              Ce jeu ne glorifie, ne promeut ni n'encourage aucune activité illégale. 
-              Il s'agit d'une œuvre de divertissement destinée uniquement à un public adulte averti.
+              Ce jeu ne glorifie, ne promeut ni n&apos;encourage aucune activité illégale. 
+              Il s&apos;agit d&apos;une œuvre de divertissement destinée uniquement à un public adulte averti.
             </p>
             <p>
               En jouant à ce jeu, vous reconnaissez comprendre la différence entre la fiction et la réalité, 
@@ -150,7 +150,7 @@ export default function ConditionsPage() {
           </p>
           <Link href="/login">
             <Button size="lg">
-              J'ai 18 ans ou plus et j'accepte les conditions
+              J&apos;ai 18 ans ou plus et j&apos;accepte les conditions
             </Button>
           </Link>
         </div>

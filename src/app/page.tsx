@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<{ name?: string; email?: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -100,7 +100,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-              Plongez dans l'Univers Impitoyable du Crime Organisé
+              Plongez dans l&apos;Univers Impitoyable du Crime Organisé
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
               Construisez votre empire, gérez vos territoires et devenez le baron de la drogue le plus redouté.
@@ -117,7 +117,7 @@ export default function Home() {
                   <Link href="/login">
                     <Button size="lg" className="text-lg px-8">
                       <Gamepad2 className="mr-2 h-5 w-5" />
-                      Commencer l'Aventure
+                      Commencer l&apos;Aventure
                     </Button>
                   </Link>
                   <Link href="/conditions">
