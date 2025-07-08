@@ -44,3 +44,6 @@ next-env.d.ts
 .cursor/*
 .cursor/
 /src/generated/prisma
+
+# database test
+/test.db

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "seed": "tsx prisma/seed.ts",
-    "db:test": "tsx prisma/db-test.ts"
+    "db:test": "tsx prisma/db-test.ts.bak"
   },
   "dependencies": {
     "@better-auth/cli": "^1.2.12",
