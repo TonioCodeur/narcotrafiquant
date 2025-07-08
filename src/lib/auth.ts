@@ -2,7 +2,14 @@ import { PrismaClient } from "@prisma/client";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 
-const prisma = new PrismaClient();
+// Instance singleton de PrismaClient pour éviter les connexions multiples
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+const prisma = globalForPrisma.prisma ?? new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {

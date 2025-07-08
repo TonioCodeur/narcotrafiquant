@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "seed": "tsx prisma/seed.ts.bak",
-    "db:test": "tsx prisma/db-test.ts.bak"
+    "db:test": "tsx prisma/db-test.ts.bak",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@better-auth/cli": "^1.2.12",
