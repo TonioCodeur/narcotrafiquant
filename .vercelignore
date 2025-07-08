@@ -1,0 +1,14 @@
+# Fichiers de test et de seed Prisma
+prisma/*.ts.bak
+prisma/db-test.ts
+prisma/seed.ts
+
+# Fichiers de développement
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Fichiers de configuration de développement
+.env.local
+.env.development 

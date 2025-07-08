@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "tsx prisma/seed.ts",
+    "seed": "tsx prisma/seed.ts.bak",
     "db:test": "tsx prisma/db-test.ts.bak"
   },
   "dependencies": {
