@@ -47,3 +47,7 @@ next-env.d.ts
 
 # database test
 /test.db
+
+# Claude
+CLAUDE.md
+SETUP.md
