@@ -12,6 +12,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@anthropic-ai/claude-code": "^1.0.51",
     "@anthropic-ai/sdk": "^0.56.0",
     "@better-auth/cli": "^1.2.12",
     "@prisma/client": "^6.11.0",

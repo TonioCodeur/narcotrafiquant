@@ -1,3 +1,10 @@
 {
-  "WillLuke.nextjs.hasPrompted": true
+  "WillLuke.nextjs.hasPrompted": true,
+  "claude-code.apiKey": "",
+  "claude-code.model": "claude-3-5-sonnet-20241022",
+  "claude-code.maxTokens": 4000,
+  "claude-code.temperature": 0.1,
+  "claude-code.enableAutoComplete": true,
+  "claude-code.enableInlineChat": true,
+  "claude-code.enableCodeActions": true
 }
